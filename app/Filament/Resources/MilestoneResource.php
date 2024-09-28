@@ -4,15 +4,19 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MilestoneResource\Pages;
 use App\Models\Milestone;
+use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -28,9 +32,9 @@ class MilestoneResource extends Resource
             ->schema([
                 Section::make('Details')
                     ->schema([
-                        TextInput::make('project_id')
-                            ->required()
-                            ->numeric(),
+                        Select::make('project_id')
+                            ->options(Project::all()->pluck('name', 'id'))
+                            ->searchable(),
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
@@ -70,7 +74,9 @@ class MilestoneResource extends Resource
                 //
             ])
             ->actions([
+                ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
