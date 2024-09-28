@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('milestone_id')->nullable()->constrained()->onDelete('set null');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->enum('status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->integer('status');
             $table->date('due_date');
             $table->foreignId('assigned_to')->nullable()->constrained('team_members')->onDelete('set null');
             $table->timestamps();
