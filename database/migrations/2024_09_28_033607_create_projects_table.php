@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('budget', 10, 2);
             $table->date('deadline');
             $table->integer('progress')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
