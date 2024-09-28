@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TaskResource\Pages;
 use App\Models\Task;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -25,22 +26,25 @@ class TaskResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('project_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('milestone_id')
-                    ->numeric(),
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Textarea::make('description')
-                    ->columnSpanFull(),
-                TextInput::make('status')
-                    ->required(),
-                DatePicker::make('due_date')
-                    ->required(),
-                TextInput::make('assigned_to')
-                    ->numeric(),
+                Section::make('Details')
+                    ->schema([
+                        TextInput::make('project_id')
+                            ->required()
+                            ->numeric(),
+                        TextInput::make('milestone_id')
+                            ->numeric(),
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        Textarea::make('description')
+                            ->columnSpanFull(),
+                        TextInput::make('status')
+                            ->required(),
+                        DatePicker::make('due_date')
+                            ->required(),
+                        TextInput::make('assigned_to')
+                            ->numeric(),
+                    ])->columns(2),
             ]);
     }
 

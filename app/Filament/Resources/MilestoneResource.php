@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MilestoneResource\Pages;
 use App\Models\Milestone;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -25,18 +26,21 @@ class MilestoneResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('project_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Textarea::make('description')
-                    ->columnSpanFull(),
-                DatePicker::make('deadline')
-                    ->required(),
-                TextInput::make('status')
-                    ->required(),
+                Section::make('Details')
+                    ->schema([
+                        TextInput::make('project_id')
+                            ->required()
+                            ->numeric(),
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        DatePicker::make('deadline')
+                            ->required(),
+                        TextInput::make('status')
+                            ->required(),
+                        Textarea::make('description')
+                            ->columnSpanFull(),
+                    ])->columns(2),
             ]);
     }
 

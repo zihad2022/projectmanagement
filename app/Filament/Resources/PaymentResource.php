@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PaymentResource\Pages;
 use App\Models\Payment;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,20 +25,23 @@ class PaymentResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('project_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('client_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('payment_method_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('currency')
-                    ->required()
-                    ->maxLength(255),
-                DatePicker::make('payment_date')
-                    ->required(),
+                Section::make('Details')
+                    ->schema([
+                        TextInput::make('project_id')
+                            ->required()
+                            ->numeric(),
+                        TextInput::make('client_id')
+                            ->required()
+                            ->numeric(),
+                        TextInput::make('payment_method_id')
+                            ->required()
+                            ->numeric(),
+                        TextInput::make('currency')
+                            ->required()
+                            ->maxLength(255),
+                        DatePicker::make('payment_date')
+                            ->required(),
+                    ])->columns(2),
             ]);
     }
 

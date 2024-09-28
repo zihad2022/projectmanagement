@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,21 +25,24 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('client_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('budget')
-                    ->required()
-                    ->numeric(),
-                DatePicker::make('deadline')
-                    ->required(),
-                TextInput::make('progress')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+                Section::make('Details')
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('client_id')
+                            ->required()
+                            ->numeric(),
+                        TextInput::make('budget')
+                            ->required()
+                            ->numeric(),
+                        DatePicker::make('deadline')
+                            ->required(),
+                        TextInput::make('progress')
+                            ->required()
+                            ->numeric()
+                            ->default(0),
+                    ])->columns(2),
             ]);
     }
 
