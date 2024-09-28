@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientResource\Pages;
 use App\Models\Client;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -23,20 +24,23 @@ class ClientResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('phone')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('address')
-                    ->required()
-                    ->maxLength(255),
+                Section::make('Details')
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('phone')
+                            ->tel()
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('address')
+                            ->required()
+                            ->maxLength(255),
+                    ])->columns(2),
             ]);
     }
 
