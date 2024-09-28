@@ -72,7 +72,7 @@ class TaskResource extends Resource
                     ->sortable(),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('status'),
+                TextColumn::make('status')->badge(),
                 TextColumn::make('due_date')
                     ->date()
                     ->sortable(),
