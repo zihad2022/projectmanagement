@@ -65,7 +65,8 @@ class MilestoneResource extends Resource
                 TextColumn::make('deadline')
                     ->date()
                     ->sortable(),
-                TextColumn::make('status'),
+                TextColumn::make('status')
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
