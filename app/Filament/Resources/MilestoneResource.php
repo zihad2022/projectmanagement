@@ -53,9 +53,7 @@ class MilestoneResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('project_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('project.name'),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('deadline')
