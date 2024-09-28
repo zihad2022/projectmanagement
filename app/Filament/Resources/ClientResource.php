@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Models\Client;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -37,10 +38,11 @@ class ClientResource extends Resource
                             ->tel()
                             ->required()
                             ->maxLength(255),
-                        TextInput::make('address')
+                        Textarea::make('address')
                             ->required()
+                            ->columnSpanFull()
                             ->maxLength(255),
-                    ])->columns(2),
+                    ])->columns(3),
             ]);
     }
 
