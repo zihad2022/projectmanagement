@@ -3,9 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TaskResource\Pages;
+use App\Models\Milestone;
+use App\Models\Project;
 use App\Models\Task;
+use App\Models\TeamMember;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -28,11 +32,13 @@ class TaskResource extends Resource
             ->schema([
                 Section::make('Details')
                     ->schema([
-                        TextInput::make('project_id')
-                            ->required()
-                            ->numeric(),
-                        TextInput::make('milestone_id')
-                            ->numeric(),
+                        Select::make('project_id')
+                            ->options(Project::all()->pluck('name', 'id'))
+                            ->searchable()
+                            ->required(),
+                        Select::make('milestone_id')
+                            ->options(Milestone::all()->pluck('name', 'id'))
+                            ->searchable(),
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
@@ -42,8 +48,9 @@ class TaskResource extends Resource
                             ->required(),
                         DatePicker::make('due_date')
                             ->required(),
-                        TextInput::make('assigned_to')
-                            ->numeric(),
+                        Select::make('assigned_to')
+                            ->options(TeamMember::all()->pluck('name', 'id'))
+                            ->searchable(),
                     ])->columns(2),
             ]);
     }
@@ -52,10 +59,8 @@ class TaskResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('project_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('milestone_id')
+                TextColumn::make('project.name'),
+                TextColumn::make('milestone.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('name')
