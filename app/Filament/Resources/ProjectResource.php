@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ProjectStatus;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Models\Client;
 use App\Models\Project;
@@ -9,6 +10,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -35,6 +37,7 @@ class ProjectResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Select::make('client_id')
+                            ->label('Select Client')
                             ->options(Client::all()->pluck('name', 'id'))
                             ->searchable()
                             ->required(),
@@ -47,6 +50,10 @@ class ProjectResource extends Resource
                             ->required()
                             ->numeric()
                             ->default(0),
+                        ToggleButtons::make('status')
+                            ->options(ProjectStatus::class)
+                            ->default(ProjectStatus::Pending)
+                            ->inline(),
                     ])->columns(2),
             ]);
     }
