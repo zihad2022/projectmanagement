@@ -34,14 +34,17 @@ class PaymentResource extends Resource
                 Section::make('Details')
                     ->schema([
                         Select::make('project_id')
+                            ->label('Select Project')
                             ->options(Project::all()->pluck('name', 'id'))
                             ->searchable()
                             ->required(),
                         Select::make('client_id')
+                            ->label('Select Client')
                             ->options(Client::all()->pluck('name', 'id'))
                             ->searchable()
                             ->required(),
                         Select::make('payment_method_id')
+                            ->label('Select Payment Method')
                             ->options(PaymentMethod::all()->pluck('name', 'id'))
                             ->searchable()
                             ->required(),
