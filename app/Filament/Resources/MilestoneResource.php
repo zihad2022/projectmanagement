@@ -34,7 +34,8 @@ class MilestoneResource extends Resource
                     ->schema([
                         Select::make('project_id')
                             ->options(Project::all()->pluck('name', 'id'))
-                            ->searchable(),
+                            ->searchable()
+                            ->required(),
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
