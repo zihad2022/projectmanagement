@@ -75,6 +75,7 @@ class ProjectResource extends Resource
                 TextColumn::make('progress')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('status')->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
