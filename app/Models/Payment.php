@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }
