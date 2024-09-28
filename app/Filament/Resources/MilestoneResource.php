@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\MilestoneStatus;
 use App\Filament\Resources\MilestoneResource\Pages;
 use App\Models\Milestone;
 use App\Models\Project;
@@ -10,6 +11,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -33,6 +35,7 @@ class MilestoneResource extends Resource
                 Section::make('Details')
                     ->schema([
                         Select::make('project_id')
+                            ->label('Select Project')
                             ->options(Project::all()->pluck('name', 'id'))
                             ->searchable()
                             ->required(),
@@ -41,7 +44,10 @@ class MilestoneResource extends Resource
                             ->maxLength(255),
                         DatePicker::make('deadline')
                             ->required(),
-                        TextInput::make('status')
+                        ToggleButtons::make('status')
+                            ->options(MilestoneStatus::class)
+                            ->default(MilestoneStatus::Pending)
+                            ->inline()
                             ->required(),
                         Textarea::make('description')
                             ->columnSpanFull(),
