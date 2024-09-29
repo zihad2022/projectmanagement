@@ -81,9 +81,7 @@ class TaskResource extends Resource
                 TextColumn::make('due_date')
                     ->date()
                     ->sortable(),
-                TextColumn::make('assigned_to')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('assignedTo.name'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
