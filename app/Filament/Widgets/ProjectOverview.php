@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Enums\ProjectStatus;
 use App\Models\Project;
 use App\Models\Task;
 use Carbon\Carbon;
@@ -14,7 +15,7 @@ class ProjectOverview extends BaseWidget
     {
         $today = Carbon::today();
 
-        $projects = Project::where('deadline', '>', $today)->get();
+        $projects = Project::where('status', ProjectStatus::InProgress)->get();
 
         $totalProjects = $projects->count();
         $totalTasks = Task::count();
