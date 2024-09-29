@@ -31,16 +31,18 @@ class ProjectOverview extends BaseWidget
             ];
         });
 
-        return [
+        $stats = [
             Stat::make('Total Running Projects', $totalProjects),
-
             Stat::make('Total Tasks', $totalTasks),
-
             Stat::make('Today\'s Tasks', $todayTasks),
-
-            Stat::make('Projects', view('filament.widgets.project-stats', [
-                'projectsWithDaysLeft' => $projectsWithDaysLeft,
-            ])),
         ];
+
+        foreach ($projectsWithDaysLeft as $project) {
+            $stats[] = Stat::make($project['name'], view('filament.widgets.project-stats', [
+                'project' => $project,
+            ]));
+        }
+
+        return $stats;
     }
 }
