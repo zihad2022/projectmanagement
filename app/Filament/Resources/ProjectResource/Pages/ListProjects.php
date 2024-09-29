@@ -22,7 +22,7 @@ class ListProjects extends ListRecords
     public function getTabs(): array
     {
         return [
-            'all' => Tab::make('All Projects'),
+            'all' => Tab::make('All'),
             'pending' => Tab::make('Pending')->modifyQueryUsing(function ($query) {
                 return $query->where('status', ProjectStatus::Pending);
             }),
