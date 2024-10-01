@@ -47,7 +47,9 @@ class TaskResource extends Resource
                         Select::make('milestone_id')
                             ->label('Select Milestone')
                             ->options(Milestone::all()->pluck('name', 'id'))
-                            ->searchable(),
+                            ->searchable()
+                            ->createOptionForm(MilestoneResource::formSchema())
+                            ->createOptionModalHeading('Create Milestone'),
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
