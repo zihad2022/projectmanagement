@@ -52,7 +52,7 @@ class ClientResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
-            ])->columns(2),
+            ])->columns(3),
         ];
     }
 
