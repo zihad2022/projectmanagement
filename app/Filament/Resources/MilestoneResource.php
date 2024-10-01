@@ -39,6 +39,8 @@ class MilestoneResource extends Resource
                             ->label('Select Project')
                             ->options(Project::all()->pluck('name', 'id'))
                             ->searchable()
+                            ->createOptionForm(ProjectResource::formSchema())
+                            ->createOptionModalHeading('Create Project')
                             ->required(),
                         TextInput::make('name')
                             ->required()
