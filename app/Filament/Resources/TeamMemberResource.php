@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TeamMemberResource\Pages;
 use App\Models\TeamMember;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -28,31 +29,34 @@ class TeamMemberResource extends Resource
         return $form
             ->schema([
                 Section::make('Details')
-                    ->schema(self::formSchema())->columns(2),
+                    ->schema(self::formSchema()),
             ]);
     }
 
     public static function formSchema(): array
     {
         return [
-            TextInput::make('name')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('email')
-                ->email()
-                ->required()
-                ->maxLength(255),
-            TextInput::make('phone')
-                ->tel()
-                ->required()
-                ->maxLength(255),
-            TextInput::make('salary')
-                ->required()
-                ->numeric(),
-            TextInput::make('success_rate')
-                ->required()
-                ->numeric()
-                ->default(0),
+            Group::make([
+
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('phone')
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('salary')
+                    ->required()
+                    ->numeric(),
+                TextInput::make('success_rate')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+            ])->columns(2),
         ];
     }
 

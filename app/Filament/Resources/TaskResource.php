@@ -61,6 +61,7 @@ class TaskResource extends Resource
                         Select::make('assigned_to')
                             ->relationship('assignedTo', 'name')
                             ->createOptionForm(TeamMemberResource::formSchema())
+                            ->createOptionModalHeading('Create Team Member')
                             ->options(TeamMember::all()->pluck('name', 'id'))
                             ->searchable(),
                     ])->columns(2),
