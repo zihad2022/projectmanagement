@@ -43,7 +43,10 @@ class MilestoneResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
-                        DatePicker::make('deadline')
+                        TextInput::make('amount')
+                            ->required()
+                            ->numeric(),
+                        DatePicker::make('due_date')
                             ->required(),
                         ToggleButtons::make('status')
                             ->options(MilestoneStatus::class)
@@ -63,7 +66,9 @@ class MilestoneResource extends Resource
                 TextColumn::make('project.name'),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('deadline')
+                TextColumn::make('amount')
+                    ->numeric(),
+                TextColumn::make('due_date')
                     ->date()
                     ->sortable(),
                 TextColumn::make('status')
