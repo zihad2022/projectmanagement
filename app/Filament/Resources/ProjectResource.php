@@ -7,6 +7,7 @@ use App\Filament\Resources\ProjectResource\Pages;
 use App\Models\Client;
 use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -33,30 +34,37 @@ class ProjectResource extends Resource
         return $form
             ->schema([
                 Section::make('Details')
-                    ->schema([
-                        TextInput::make('name')
-                            ->required()
-                            ->maxLength(255),
-                        Select::make('client_id')
-                            ->label('Select Client')
-                            ->options(Client::all()->pluck('name', 'id'))
-                            ->searchable()
-                            ->required(),
-                        TextInput::make('budget')
-                            ->required()
-                            ->numeric(),
-                        DatePicker::make('deadline')
-                            ->required(),
-                        TextInput::make('progress')
-                            ->required()
-                            ->numeric()
-                            ->default(0),
-                        ToggleButtons::make('status')
-                            ->options(ProjectStatus::class)
-                            ->default(ProjectStatus::Pending)
-                            ->inline(),
-                    ])->columns(2),
+                    ->schema(self::formSchema()),
             ]);
+    }
+
+    public static function formSchema(): array
+    {
+        return [
+            Group::make([
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Select::make('client_id')
+                    ->label('Select Client')
+                    ->options(Client::all()->pluck('name', 'id'))
+                    ->searchable()
+                    ->required(),
+                TextInput::make('budget')
+                    ->required()
+                    ->numeric(),
+                DatePicker::make('deadline')
+                    ->required(),
+                TextInput::make('progress')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                ToggleButtons::make('status')
+                    ->options(ProjectStatus::class)
+                    ->default(ProjectStatus::Pending)
+                    ->inline(),
+            ])->columns(2),
+        ];
     }
 
     public static function table(Table $table): Table
