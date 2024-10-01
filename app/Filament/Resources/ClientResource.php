@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientResource\Pages;
 use App\Models\Client;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -28,25 +29,32 @@ class ClientResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Details')
-                    ->schema([
-                        TextInput::make('name')
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('email')
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('phone')
-                            ->tel()
-                            ->required()
-                            ->maxLength(255),
-                        Textarea::make('address')
-                            ->required()
-                            ->columnSpanFull()
-                            ->maxLength(255),
-                    ])->columns(3),
+                Section::make()
+                    ->schema(self::formSchema()),
             ]);
+    }
+
+    public static function formSchema(): array
+    {
+        return [
+            Group::make([
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('phone')
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
+                Textarea::make('address')
+                    ->required()
+                    ->columnSpanFull()
+                    ->maxLength(255),
+            ])->columns(2),
+        ];
     }
 
     public static function table(Table $table): Table
