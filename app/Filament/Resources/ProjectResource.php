@@ -33,8 +33,7 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Details')
-                    ->schema(self::formSchema()),
+                Section::make()->schema(self::formSchema()),
             ]);
     }
 
