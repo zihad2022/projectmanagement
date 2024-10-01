@@ -7,6 +7,7 @@ use App\Filament\Resources\MilestoneResource\Pages;
 use App\Models\Milestone;
 use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -33,32 +34,38 @@ class MilestoneResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Details')
-                    ->schema([
-                        Select::make('project_id')
-                            ->label('Select Project')
-                            ->options(Project::all()->pluck('name', 'id'))
-                            ->searchable()
-                            ->createOptionForm(ProjectResource::formSchema())
-                            ->createOptionModalHeading('Create Project')
-                            ->required(),
-                        TextInput::make('name')
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('amount')
-                            ->required()
-                            ->numeric(),
-                        DatePicker::make('due_date')
-                            ->required(),
-                        ToggleButtons::make('status')
-                            ->options(MilestoneStatus::class)
-                            ->default(MilestoneStatus::Pending)
-                            ->inline()
-                            ->required(),
-                        MarkdownEditor::make('description')
-                            ->columnSpanFull(),
-                    ])->columns(2),
+                Section::make()->schema(self::formSchema()),
             ]);
+    }
+
+    public static function formSchema(): array
+    {
+        return [
+            Group::make([
+                Select::make('project_id')
+                    ->label('Select Project')
+                    ->options(Project::all()->pluck('name', 'id'))
+                    ->searchable()
+                    ->createOptionForm(ProjectResource::formSchema())
+                    ->createOptionModalHeading('Create Project')
+                    ->required(),
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('amount')
+                    ->required()
+                    ->numeric(),
+                DatePicker::make('due_date')
+                    ->required(),
+                ToggleButtons::make('status')
+                    ->options(MilestoneStatus::class)
+                    ->default(MilestoneStatus::Pending)
+                    ->inline()
+                    ->required(),
+                MarkdownEditor::make('description')
+                    ->columnSpanFull(),
+            ])->columns(2),
+        ];
     }
 
     public static function table(Table $table): Table
