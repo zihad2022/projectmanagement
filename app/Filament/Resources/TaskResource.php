@@ -9,9 +9,9 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\TeamMember;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
@@ -51,13 +51,6 @@ class TaskResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
-                        Textarea::make('description')
-                            ->columnSpanFull(),
-                        ToggleButtons::make('status')
-                            ->options(TaskStatus::class)
-                            ->default(TaskStatus::Pending)
-                            ->inline()
-                            ->required(),
                         DatePicker::make('due_date')
                             ->required(),
                         Select::make('assigned_to')
@@ -66,6 +59,13 @@ class TaskResource extends Resource
                             ->createOptionModalHeading('Create Team Member')
                             ->options(TeamMember::all()->pluck('name', 'id'))
                             ->searchable(),
+                        ToggleButtons::make('status')
+                            ->options(TaskStatus::class)
+                            ->default(TaskStatus::Pending)
+                            ->inline()
+                            ->required(),
+                        MarkdownEditor::make('description')
+                            ->columnSpanFull(),
                     ])->columns(2),
             ]);
     }
