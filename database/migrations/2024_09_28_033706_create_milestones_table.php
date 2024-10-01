@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->date('deadline');
+            $table->decimal('amount', 10, 2);
             $table->integer('status');
+            $table->date('due_date')->nullable();
             $table->timestamps();
         });
     }
