@@ -29,8 +29,7 @@ class ClientResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()
-                    ->schema(self::formSchema()),
+                Section::make()->schema(self::formSchema()),
             ]);
     }
 
